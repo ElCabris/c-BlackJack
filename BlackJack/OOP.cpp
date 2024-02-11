@@ -5,6 +5,22 @@
 
 std::vector<Card> CARDS;
 
+
+int OOP::valor_real(int valor_neto)
+{
+	if (valor_neto >= 11) {
+		return 10;
+	}
+	else if (valor_neto == 1)
+	{
+		return 11;
+	}
+	else
+	{
+		return valor_neto;
+	}
+}
+
 Card::Card() {
  //pasos necesarios para generar un número aleatorio con <random>
 	std::random_device rd;
@@ -45,21 +61,20 @@ Player::Player(){
 		_playersCards.push_back(Card());
 		int valor_neto = _playersCards[_playersCards.size() - 1].getNumber();
 		if (valor_neto >= 11) {
-			_suma[0] += 10;
-			_suma[1] += 10;
+			_suma += 10;
 		}
 		else if (valor_neto == 1) {
-			_suma[0] += 11;
-			_suma[1] += 1;
+			_suma += 11;
+			_AsActivate++;
 		}
 		else {
-			_suma[0] += valor_neto;
-			_suma[1] += valor_neto;
+			_suma += valor_neto;
 		}
 	}
 
-	if (_suma[0] == 21) {
+	if (_suma == 21) {
 		_BlackJack = true;
+		_playing = false;
 	}
 }
 
@@ -95,8 +110,49 @@ void Player::showCards() {
 	}
 }
 
-void Player::hit() {
-	_playersCards.push_back(Card());
+void Player::hit()
+{
+	if (_playing) {
+		_playersCards.push_back(Card());
+		int neto_valor = _playersCards[_playersCards.size() - 1].getNumber();
+		neto_valor = OOP::valor_real(neto_valor);
+		
+		if (neto_valor == 11) {
+			_AsActivate++;
+		}
+		_suma += neto_valor;
 
+		if (_suma > 21) {
+			if (_AsActivate++)
+			{
+				_suma -= 10;
+				_AsActivate--;
+			}
+			else
+			{
+				_playing = false;
+			}
+		}
+		else if (_suma == 21)
+		{
+			_playing = false;
+		}
+
+	}
+	else {
+		std::cout << "error, el jugador ya ha terminado la ronda" << std::endl;
+	}
 	
+}
+
+void Gambler::Action(std::string action)
+{
+	if (action == "hit") {
+		this->hit();
+	}
+}
+
+unsigned int Gambler::getChips()
+{
+	return _chips;
 }

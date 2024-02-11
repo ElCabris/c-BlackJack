@@ -1,5 +1,12 @@
 #include <string>
 #include <vector>
+
+namespace OOP
+{
+	int valor_real(int);
+}
+
+
 class Card
 {
 public:
@@ -17,17 +24,24 @@ class Player
 {
 public:
 	Player(); //number cards la implementé por si se quieren jugar más adelante variantes del blackjack
-	void hit(); //palabra utiliza para pedir carata
 	void showCards();
-	//virtual void Action() = 0;
-
+	virtual void Action(std::string) = 0;
+	void hit(); //palabra utiliza para pedir 
 protected:
-	int _suma[2] = { 0, 0 }; //pongo dos opciones de suma por si aparece una As en la mano
+	int _suma = 0; //pongo dos opciones de suma por si aparece una As en la mano
+	int _AsActivate = 0;
 	std::vector<Card> _playersCards;
-	bool _BlackJack;
+	bool _BlackJack = false;
+	bool _playing = true;
+
 };
 
 class Gambler : public Player {
 public:
-	using Player::Player;
+	Gambler(std::string nombre, unsigned fichas) : _name(nombre), _chips(fichas), Player::Player() {}
+	void Action(std::string action) override;
+	unsigned int getChips();
+private:
+	std::string _name;
+	unsigned int _chips;
 };
