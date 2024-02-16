@@ -23,10 +23,12 @@ private:
 class Player
 {
 public:
-	Player(); //number cards la implementé por si se quieren jugar más adelante variantes del blackjack
+	Player(); //number cards la implementï¿½ por si se quieren jugar mï¿½s adelante variantes del blackjack
 	void showCards();
 	virtual void Action(std::string) = 0;
-	void hit(); //palabra utiliza para pedir 
+	void hit(); //metodo para pedir una carta
+	void to_stand(); //metodo para "plantarse" en una partida
+
 protected:
 	int _suma = 0; //pongo dos opciones de suma por si aparece una As en la mano
 	int _AsActivate = 0;

@@ -9,10 +9,15 @@ int main()
 
 	player1.showCards();
 
-	std::cout << "coges una carta" << std::endl;
+	std::string hacer;
+	do
+	{
+		getline(std::cin, hacer);
+		player1.Action(hacer);
+		player1.showCards();
+	} while (hacer != "exit");
+	
 
-	player1.Action("hit");
-	player1.showCards();
-	std::cout << player1.getChips() << std::endl;
+	
 	return 0;
 }

@@ -22,7 +22,7 @@ int OOP::valor_real(int valor_neto)
 }
 
 Card::Card() {
- //pasos necesarios para generar un número aleatorio con <random>
+ //pasos necesarios para generar un nï¿½mero aleatorio con <random>
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> pintas(1, 4);
@@ -94,7 +94,9 @@ void Player::showCards() {
 			std::cout << it.getNumber();
 			break;
 		}
+
 		std::cout << ' ';
+
 		switch (it.getPinta())
 		{
 		case 3: std::cout << "Hearts";
@@ -145,11 +147,23 @@ void Player::hit()
 	
 }
 
-void Gambler::Action(std::string action)
+void Player::to_stand()
 {
-	if (action == "hit") {
-		this->hit();
+	_playing = false;
+}
+
+void Gambler::Action(std::string action) 
+/*en esta funciï¿½n van a ir incluido
+todos las "acciones que puede hacer el jugador segï¿½n sus condiciones" tambiï¿½n una consulta para ver los
+comados*/
+{
+	if (action == "help")
+	{
+		std::cout << "hit para pedir" << std::endl << "stand para plantarse" << std::endl; 
 	}
+	else if (action == "hit") { this->hit(); }
+	else if (action == "stand") { this->to_stand(); }
+	
 }
 
 unsigned int Gambler::getChips()
