@@ -166,7 +166,47 @@ comados*/
 	
 }
 
+Gambler::Gambler(std::string nombre, unsigned int fichas) : Player(), _name(nombre), _chips(fichas) {}
+
+Gambler::Gambler() : Player(), _chips(100) {}
+
 unsigned int Gambler::getChips()
 {
 	return _chips;
+}
+
+void Gambler::setName(std::string nombre)
+{
+	_name = nombre;
+}
+
+Dealer::Dealer() : Player::Player()
+{
+	std::cout << _playersCards[0].getNumber() << " " << _playersCards[0].getPinta() << std::endl;
+}
+
+void Dealer::hit()
+{
+	Player::hit();
+	if(_suma >= 17)
+	{
+		_playing = false;
+	}
+}
+
+void Dealer::play()
+{
+	if (_playing)
+	{
+		Player::showCards();
+		do
+		{
+			Dealer::hit();
+			Player::showCards();
+		}while(_playing);
+	}
+	else
+	{
+		std::cout << "error, dealer is not playing" << std::endl;
+	}
 }

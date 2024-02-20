@@ -3,21 +3,22 @@
 
 int main()
 {
-	Gambler player1("Emanuel", 100);
+	int nplayers;
+	std::cout << "ingrese la cantidad de jugadores: ";
+	std::cin >> nplayers;
+	std::cin.ignore();
+	
+	Gambler jugadores[nplayers];
+	std::string name;
 
-	std::cout << "se reparten dos cartas" << std::endl;
-
-	player1.showCards();
-
-	std::string hacer;
-	do
+	for(int i = 0; i < nplayers; i++)
 	{
-		getline(std::cin, hacer);
-		player1.Action(hacer);
-		player1.showCards();
-	} while (hacer != "exit");
-	
+		std::cout << "introduce el nombre del jugador " << i + 1 << ": ";
+		getline(std::cin, name);
+		jugadores[i].setName(name);
+	}
 
-	
+	Dealer crupier; //el iniciador del Dealer imprime únicamente la primera carta
+
 	return 0;
 }
